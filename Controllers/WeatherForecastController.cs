@@ -1,6 +1,6 @@
 using Microsoft.AspNetCore.Mvc;
 
-namespace tl2_tp09_2023_NicoPed.Controllers;
+namespace tl2_tp09_2023_NicoPed;
 
 [ApiController]
 [Route("[controller]")]
