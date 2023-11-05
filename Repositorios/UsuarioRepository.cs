@@ -4,7 +4,7 @@ using tl2_tp09_2023_NicoPed;
 
 namespace Parcial2.Repositorios
 {
-    public class DirectoresRepository : IUsuarioRepository
+    public class UsuarioRepository : IUsuarioRepository
     {
         // private string cadenaConexion = @"Data Source = DB/kanban.sqlite;Initial Catalog=Northwind;" + "Integrated Security=true";
         private string cadenaConexion = "Data Source=db/kanban.db;Cache=Shared";
