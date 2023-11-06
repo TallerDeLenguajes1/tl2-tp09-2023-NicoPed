@@ -10,8 +10,8 @@ namespace Parcial2.Repositorios
 {
     public List<Usuario> GetAllUsuarios();
     public Usuario GetUsuarioById(int id);
-    public void CreateUsuario(Usuario usuario);
-    public void RemoveUsuario(int id);
-    public void Updateusuario(Usuario usuario);
+    public bool CreateUsuario(Usuario usuario);
+    public bool RemoveUsuario(int id);
+    public bool Updateusuario(Usuario usuario);
 }
 }
