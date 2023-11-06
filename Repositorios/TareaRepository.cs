@@ -10,13 +10,14 @@ namespace Parcial2.Repositorios
         //LA CADENA DE CONEXION!!!!!!!!
         private string cadenaConexion = "Data Source=db/kanban.db;Cache=Shared";
        
-        public void AssingTareaToUser(int id_usuario, int id_Tarea)
+        public bool AssingTareaToUser(int id_usuario, int id_Tarea)
         {
             throw new NotImplementedException();
         }
 
-        public void CreateTarea(Tarea tarea)
+        public bool CreateTarea(Tarea tarea)
         {
+            var resultado = false;
             var queryString = @"INSERT INTO tarea 
             (id_tablero, nombre, estado, descripcion, color, id_usuario_asignado)
             VALUES(@id_tablero, @nombre, @estado, @descripcion, @color, @id_usu )";
@@ -32,7 +33,9 @@ namespace Parcial2.Repositorios
                 command.Parameters.Add(new SQLiteParameter("@color",tarea.Color));
                 command.ExecuteNonQuery();
                 connection.Close();
+                resultado = true;
             }
+            return resultado;
         }
 
         public List<Tarea> GetAllTablerosTareas(int id_tablero)
@@ -195,8 +198,9 @@ namespace Parcial2.Repositorios
             return tarea;
         }
 
-        public void RemoveTarea(int id)
+        public bool RemoveTarea(int id)
         {
+            var resultado = false;
             var queryString = @"DELETE FROM tarea 
             WHERE id_tarea = @id ;";//LA CONSULTA
             using (SQLiteConnection connection = new SQLiteConnection(cadenaConexion))
@@ -206,11 +210,52 @@ namespace Parcial2.Repositorios
                 command.Parameters.Add(new SQLiteParameter("@id",id));
                 command.ExecuteNonQuery();
                 connection.Close(); //SIEMPRE CERRRAR!!!!!!!!!!!!!!!!!!!!!!
+                resultado = true;
             }
+            return resultado;
         }
+        public int CantTareasEnUnEstado(Tarea.estadoTarea estado){
+            var queryString = @"SELECT * FROM tarea
+            WEHERE estado = @estado;";
 
-        public void UpdateTarea(Tarea tarea)
+            var tareas = new List<Tarea>();
+            
+            using (SQLiteConnection connection = new SQLiteConnection(cadenaConexion))
+            {
+                SQLiteCommand command = new SQLiteCommand(queryString, connection); //Y ESTO ES IGUAL EN TODOS LADOS
+                
+                connection.Open();
+                command.Parameters.Add(new SQLiteParameter("@estado",estado));
+                
+                using(SQLiteDataReader reader = command.ExecuteReader())
+                {
+                    while (reader.Read()) //AQUI CAMBIA DEPENDIENDO DE LO QUE NECESITE
+                    {
+                        var tarea = new Tarea();
+                        tarea.Id_tarea = Convert.ToInt32(reader["id_tarea"]);
+                        tarea.Id_tablero = Convert.ToInt32(reader["id_tablero"]);
+                        tarea.Nombre = reader["nombre"].ToString();
+                        tarea.Descripcion = reader["descripcion"].ToString();
+                        tarea.Color = reader["color"].ToString();
+                        tarea.Id_usuario_asignado = Convert.ToInt32(reader["id_usuario_asignado"]);
+                        if (Enum.TryParse(typeof(Tarea.estadoTarea), reader["estadoTarea"].ToString(), out var estad))
+                        {
+                            tarea.Estado = (Tarea.estadoTarea)estad;
+                        }
+                        else
+                        {
+                            tarea.Estado = Tarea.estadoTarea.Ideas;
+                        }
+                        tareas.Add(tarea);
+                    }
+                }
+                connection.Close(); //SIEMPRE CERRRAR!!!!!!!!!!!!!!!!!!!!!!
+            }
+            return tareas.Count;
+        }
+        public bool UpdateTarea(Tarea tarea)
         {
+            var resultado = false;
             var queryString = @"UPDATE tarea SET id_tablero = @idTablero,nombre = @nombre, 
             estado = @estado, descripcion = @descripcion, color = @color,
             id_usuario_asignado = @id_usu
@@ -228,7 +273,9 @@ namespace Parcial2.Repositorios
                 command.Parameters.Add(new SQLiteParameter("@idTablero",tarea.Id_tablero));
                 command.ExecuteNonQuery();
                 connection.Close(); //SIEMPRE CERRRAR!!!!!!!!!!!!!!!!!!!!!!
+                resultado = true;
             }
+            return resultado;
         }
     }
 

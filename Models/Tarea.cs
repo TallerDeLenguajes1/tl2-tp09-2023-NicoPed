@@ -16,6 +16,10 @@ public class Tarea{
     private string? color;
     private int id_usuario_asignado;
 
+    public Tarea()
+    {
+    }
+
     public int Id_tarea { get => id_tarea; set => id_tarea = value; }
     public int Id_tablero { get => id_tablero; set => id_tablero = value; }
     public string? Nombre { get => nombre; set => nombre = value; }

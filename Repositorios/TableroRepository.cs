@@ -1,5 +1,6 @@
 
 using System.Data.SQLite;
+using System.Security.Cryptography;
 using Microsoft.AspNetCore.Mvc;
 using tl2_tp09_2023_NicoPed;
 
@@ -10,8 +11,9 @@ namespace Parcial2.Repositorios
         //LA CADENA DE CONEXION!!!!!!!!
         private string cadenaConexion = "Data Source=db/kanban.db;Cache=Shared";
 
-        public void CreateTablero(Tablero tablero)
+        public bool CreateTablero(Tablero tablero)
         {
+            var resultado = false;
             var queryString = @"INSERT INTO tablero (id_usuario_propietario, nombre, descripcion)
             VALUES(@id_usu, @nombre, @descripcion)";
             using (SQLiteConnection connection = new SQLiteConnection(cadenaConexion))
@@ -23,7 +25,9 @@ namespace Parcial2.Repositorios
                 command.Parameters.Add(new SQLiteParameter("@descripcion",tablero.Descripcion));
                 command.ExecuteNonQuery();
                 connection.Close();
+                resultado = true;
             }
+            return resultado;
         }
 
         public List<Tablero> GetAllTableros()
@@ -114,8 +118,9 @@ namespace Parcial2.Repositorios
             return tablero;
         }
 
-        public void RemoveTablero(int id)
+        public bool RemoveTablero(int id)
         {
+            var resultado = false;
             var queryString = @"DELETE FROM tablero 
             WHERE id_tablero = @id ;";//LA CONSULTA
             using (SQLiteConnection connection = new SQLiteConnection(cadenaConexion))
@@ -125,11 +130,14 @@ namespace Parcial2.Repositorios
                 command.Parameters.Add(new SQLiteParameter("@id",id));
                 command.ExecuteNonQuery();
                 connection.Close(); //SIEMPRE CERRRAR!!!!!!!!!!!!!!!!!!!!!!
+                resultado = true;
             }
+            return resultado;
         }
 
-        public void UpdateTablero(Tablero tablero)
+        public bool UpdateTablero(Tablero tablero)
         {
+            var resultado = false;
             var queryString = @"UPDATE tablero SET id_usuario_propietario = @id_usu
             ,nombre = @nombre, descripcion = @descripcion
             WHERE id_tablero = @id";
@@ -142,8 +150,10 @@ namespace Parcial2.Repositorios
                 command.Parameters.Add(new SQLiteParameter("@descripcion",tablero.Descripcion));
                 command.Parameters.Add(new SQLiteParameter("@id",tablero.Id_tablero));
                 command.ExecuteNonQuery();
-                connection.Close(); //SIEMPRE CERRRAR!!!!!!!!!!!!!!!!!!!!!!
+                connection.Close();
+                resultado = true; //SIEMPRE CERRRAR!!!!!!!!!!!!!!!!!!!!!!
             }
+            return resultado;
         }
     }
 

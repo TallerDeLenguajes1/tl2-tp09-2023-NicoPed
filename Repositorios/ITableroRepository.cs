@@ -10,9 +10,10 @@ namespace Parcial2.Repositorios
 {
     public List<Tablero> GetAllTableros();
     public Tablero GetTableroById(int id);
-    public void CreateTablero(Tablero tablero);
-    public void RemoveTablero(int id);
-    public void UpdateTablero(Tablero tablero);
+    public bool CreateTablero(Tablero tablero);
+    public bool RemoveTablero(int id);
+    public bool UpdateTablero(Tablero tablero);
     public List<Tablero> GetAllUsersTableros(int id_usuario);
+    
 }
 }

@@ -5,6 +5,10 @@ public class Tablero{
     private string? nombre;
     private string? descripcion;
 
+    public Tablero()
+    {
+    }
+
     public int Id_tablero { get => id_tablero; set => id_tablero = value; }
     public int Id_usuario_propietario { get => id_usuario_propietario; set => id_usuario_propietario = value; }
     public string? Nombre { get => nombre; set => nombre = value; }
