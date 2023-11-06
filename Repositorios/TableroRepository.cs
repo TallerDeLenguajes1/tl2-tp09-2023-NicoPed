@@ -61,7 +61,7 @@ namespace Parcial2.Repositorios
         public List<Tablero> GetAllUsersTableros(int id_usuario)
         {
             var queryString = @"SELECT * FROM tablero
-            WEHERE id_usuario_propietario = @id_usu;";
+            WHERE id_usuario_propietario = @id_usu;";
 
             var tableros = new List<Tablero>();
             
@@ -92,7 +92,7 @@ namespace Parcial2.Repositorios
         public Tablero GetTableroById(int id)
         {
             var queryString = @"SELECT * FROM tablero
-            WEHERE id_tablero = @id_tablero;";
+            WHERE id_tablero = @id_tablero;";
 
             var tablero = new Tablero();
             

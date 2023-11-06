@@ -41,7 +41,7 @@ namespace Parcial2.Repositorios
         public List<Tarea> GetAllTablerosTareas(int id_tablero)
         {
             var queryString = @"SELECT * FROM tarea
-            WEHERE id_tablero = @id_tab;";
+            WHERE id_tablero = @id_tab;";
 
             var tareas = new List<Tarea>();
             
@@ -63,7 +63,7 @@ namespace Parcial2.Repositorios
                         tarea.Descripcion = reader["descripcion"].ToString();
                         tarea.Color = reader["color"].ToString();
                         tarea.Id_usuario_asignado = Convert.ToInt32(reader["id_usuario_asignado"]);
-                        if (Enum.TryParse(typeof(Tarea.estadoTarea), reader["estadoTarea"].ToString(), out var estado))
+                        if (Enum.TryParse(typeof(Tarea.estadoTarea), reader["estado"].ToString(), out var estado))
                         {
                             tarea.Estado = (Tarea.estadoTarea)estado;
                         }
@@ -102,7 +102,8 @@ namespace Parcial2.Repositorios
                         tarea.Descripcion = reader["descripcion"].ToString();
                         tarea.Color = reader["color"].ToString();
                         tarea.Id_usuario_asignado = Convert.ToInt32(reader["id_usuario_asignado"]);
-                        if (Enum.TryParse(typeof(Tarea.estadoTarea), reader["estadoTarea"].ToString(), out var estado))
+                        
+                        if (Enum.TryParse(typeof(Tarea.estadoTarea), reader["estado"].ToString(), out var estado))
                         {
                             tarea.Estado = (Tarea.estadoTarea)estado;
                         }
@@ -121,7 +122,7 @@ namespace Parcial2.Repositorios
         public List<Tarea> GetAllUsersTareas(int id_usuario)
         {
             var queryString = @"SELECT * FROM tarea
-            WEHERE id_usuario_asignado = @id_usu;";
+            WHERE id_usuario_asignado = @id_usu;";
 
             var tareas = new List<Tarea>();
             
@@ -143,7 +144,7 @@ namespace Parcial2.Repositorios
                         tarea.Descripcion = reader["descripcion"].ToString();
                         tarea.Color = reader["color"].ToString();
                         tarea.Id_usuario_asignado = Convert.ToInt32(reader["id_usuario_asignado"]);
-                        if (Enum.TryParse(typeof(Tarea.estadoTarea), reader["estadoTarea"].ToString(), out var estado))
+                        if (Enum.TryParse(typeof(Tarea.estadoTarea), reader["estado"].ToString(), out var estado))
                         {
                             tarea.Estado = (Tarea.estadoTarea)estado;
                         }
@@ -162,7 +163,7 @@ namespace Parcial2.Repositorios
         public Tarea GetTareaById(int id)
         {
             var queryString = @"SELECT * FROM tarea
-            WEHERE id_tarea = @id_tarea;";
+            WHERE id_tarea = @id_tarea;";
 
             var tarea = new Tarea();
             
@@ -183,7 +184,7 @@ namespace Parcial2.Repositorios
                         tarea.Descripcion = reader["descripcion"].ToString();
                         tarea.Color = reader["color"].ToString();
                         tarea.Id_usuario_asignado = Convert.ToInt32(reader["id_usuario_asignado"]);
-                        if (Enum.TryParse(typeof(Tarea.estadoTarea), reader["estadoTarea"].ToString(), out var estado))
+                        if (Enum.TryParse(typeof(Tarea.estadoTarea), reader["estado"].ToString(), out var estado))
                         {
                             tarea.Estado = (Tarea.estadoTarea)estado;
                         }
@@ -216,7 +217,7 @@ namespace Parcial2.Repositorios
         }
         public int CantTareasEnUnEstado(Tarea.estadoTarea estado){
             var queryString = @"SELECT * FROM tarea
-            WEHERE estado = @estado;";
+            WHERE estado = @estado;";
 
             var tareas = new List<Tarea>();
             
@@ -238,7 +239,7 @@ namespace Parcial2.Repositorios
                         tarea.Descripcion = reader["descripcion"].ToString();
                         tarea.Color = reader["color"].ToString();
                         tarea.Id_usuario_asignado = Convert.ToInt32(reader["id_usuario_asignado"]);
-                        if (Enum.TryParse(typeof(Tarea.estadoTarea), reader["estadoTarea"].ToString(), out var estad))
+                        if (Enum.TryParse(typeof(Tarea.estadoTarea), reader["estado"].ToString(), out var estad))
                         {
                             tarea.Estado = (Tarea.estadoTarea)estad;
                         }

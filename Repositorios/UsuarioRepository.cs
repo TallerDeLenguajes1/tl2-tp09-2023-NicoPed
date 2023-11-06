@@ -60,7 +60,7 @@ namespace Parcial2.Repositorios
             SQLiteCommand command = connection.CreateCommand();
            
             command.CommandText = "SELECT * FROM usuario WHERE id_usuario = @idUsuario"; //el id = @idDirector permite la seguridad en las consultas
-            command.Parameters.Add(new SQLiteParameter("@idDirector", idUsuario));//y aqui "defino" esa variable para buscar
+            command.Parameters.Add(new SQLiteParameter("@idUsuario", idUsuario));//y aqui "defino" esa variable para buscar
            
             connection.Open();
             using(SQLiteDataReader reader = command.ExecuteReader())

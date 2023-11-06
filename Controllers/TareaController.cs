@@ -29,7 +29,7 @@ public class TareaController : ControllerBase
 
     [HttpGet]
     [Route("Usuario/Estado")]
-    public ActionResult<List<Tarea>> GetAllUsuarios(Tarea.estadoTarea estado){
+    public ActionResult<int> GetAllUsuarios(Tarea.estadoTarea estado){
         var resultado = repository.CantTareasEnUnEstado(estado);
         return Ok(resultado);
     }
@@ -68,9 +68,15 @@ public class TareaController : ControllerBase
         var resultado = repository.UpdateTarea(tare);
         if (resultado)
         {
-            return Ok("Nombre Actualizado");
+            return Ok("Estado Actualizado");
         }
         return BadRequest("Algo salio mal");
     }
+    [HttpGet]
+    [Route("AllTareas")]
     
+    public ActionResult<List<Tarea>> AllTareas(){
+        var tareas = repository.GetAllTareas();
+        return tareas;
+    }
 }
